@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospice & Palliative Care Quiz | Safe Life Home Health Care</title>
+  <meta name="description" content="Answer 6 quick questions to see if hospice or palliative care could be right for you or a loved one. Safe Life Home Health Care — Keeping You Home, Keeping You Safe." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root{ --slh-primary:#004a68; --slh-accent:#3cafaa; --slh-bg:#f7fafb; --slh-text:#0f2b36; --radius:18px; }
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--slh-text);
+      background:linear-gradient(135deg, var(--slh-primary) 0%, var(--slh-accent) 100%);
+      min-height:100vh; display:flex; align-items:flex-start; justify-content:center;
+    }
+    .container{ width:min(100%, 980px); background:#fff; margin:28px 16px; border-radius:var(--radius); box-shadow:0 20px 40px rgba(0,0,0,.12); overflow:hidden; }
+    .hero{ background:linear-gradient(135deg, #055e82, var(--slh-accent)); color:#fff; padding:36px 28px; display:grid; gap:8px; }
+    .hero-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+    .brand{display:inline-block;text-decoration:none;line-height:0}
+    .brand img{height:100px;width:auto;display:block;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+    .hero h1{margin:0;font-size:clamp(28px, 3.2vw, 40px);font-weight:800;letter-spacing:.2px}
+    .hero p{margin:0;font-size:clamp(14px, 1.8vw, 18px);opacity:.95}
+    .slogan{opacity:.85;font-weight:600}
+    .hero .btn-home{appearance:none;border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;background:#ffffff;color:#055e82;text-decoration:none}
+    .hero .btn-home:hover{filter:brightness(1.05)}
+
+    .content{padding:28px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#eef7f7;color:#064457;font-weight:600;font-size:14px}
+    .badge .dot{width:8px;height:8px;border-radius:999px;background:var(--slh-accent)}
+
+    form{margin-top:18px;display:grid;gap:18px}
+    fieldset{border:1px solid #e7eef0;border-radius:16px;padding:18px}
+    legend{font-weight:700;color:var(--slh-primary);padding:0 6px}
+    .q{display:grid;gap:10px}
+    .q label{font-weight:600}
+    .options{display:flex;flex-wrap:wrap;gap:12px}
+    .opt{display:inline-flex;align-items:center;gap:8px;border:1px solid #dfe9ec;border-radius:12px;padding:10px 14px;cursor:pointer;transition:transform .06s ease, box-shadow .12s ease, border-color .12s ease;user-select:none}
+    .opt:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.06)}
+    .opt input{accent-color:var(--slh-accent)}
+
+    /* Sticky progress like Home Health page */
+    .progress-wrap{position:sticky; top:0; z-index:50; background:#fff; padding:10px 0; box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .progress{background:#edf5f6;border-radius:999px;height:10px;overflow:hidden}
+    .progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg, var(--slh-accent), #6ad3c3)}
+
+    .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px}
+    .btn{appearance:none;border:none;border-radius:999px;padding:12px 18px;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--slh-primary);color:#fff}
+    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-ghost{background:#e9f3f3;color:#064457}
+    .disclaimer{font-size:12px;opacity:.85;line-height:1.5}
+
+    .results{display:none;margin-top:8px}
+    .card{border:1px solid #e7eef0;border-radius:16px;padding:18px;background:#fbfeff}
+    .score{font-weight:800;color:var(--slh-primary)}
+    .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+
+    .contact{display:none;margin-top:8px}
+    .grid{display:grid;gap:10px}
+    @media(min-width:640px){.grid.two{grid-template-columns:1fr 1fr}}
+    input[type="text"],input[type="email"],input[type="tel"],select{width:100%;padding:12px 14px;border:1px solid #dfe9ec;border-radius:12px;outline:none}
+    input:focus,select:focus{border-color:var(--slh-accent);box-shadow:0 0 0 3px rgba(60,175,170,.15)}
+
+    footer.site-footer{background:#ffffff;border-top:4px solid var(--slh-accent);box-shadow:0 -8px 22px rgba(0,0,0,.05)}
+    .footer-inner{width:min(100%, 1100px);margin:0 auto;padding:36px 18px}
+    .footer-title{font-weight:800;color:var(--slh-primary);font-size:clamp(18px, 2vw, 22px);margin:0 0 12px}
+    .licensed-grid{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:10px 24px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #e7eef0}
+    .licensed-grid span{display:block}
+    .contact-block{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:22px;padding-top:14px}
+    .office h4{margin:0 0 6px;color:var(--slh-primary)}
+    .office .row{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;margin:6px 0}
+    .office .row svg{width:18px;height:18px}
+    @media(max-width:760px){.licensed-grid{grid-template-columns:repeat(2, minmax(0,1fr))}.contact-block{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="container" id="quiz-app" role="main">
+    <section class="hero">
+      <div class="hero-header">
+        <a class="brand" href="https://safelifehomehealth.com" title="Safe Life Home Health" aria-label="Safe Life Home Health — Home">
+          <img src="icon.png" alt="Safe Life Home Health logo" />
+        </a>
+        <a class="btn-home" href="https://safelifehomehealth.com">Take me back to Home Page</a>
+      </div>
+
+      <span class="badge"><span class="dot"></span> 6 quick questions • ~60 seconds</span>
+      <h1>Hospice &amp; Palliative Care Quiz</h1>
+      <p class="slogan">Keeping You Home, Keeping You Safe</p>
+      <p>Answer a few questions to learn whether hospice or palliative care might help you or a loved one. This is quick, private, and for general guidance only.</p>
+    </section>
+
+    <section class="content">
+      <div class="progress-wrap" aria-label="progress sticky wrapper">
+        <div aria-label="progress" class="progress" title="Progress">
+          <span id="progressBar" style="width:0%"></span>
+        </div>
+      </div>
+
+      <form id="quizForm" novalidate>
+        <!-- Q1 -->
+        <fieldset>
+          <legend>1. Hospice discussion</legend>
+          <div class="q">
+            <label for="q1-yes">Has a clinician discussed <strong>hospice</strong> or suggested focusing on <strong>comfort rather than cure</strong>, or mentioned a life expectancy of about six months or less?</label>
+            <div class="options" role="radiogroup">
+              <label class="opt"><input type="radio" name="q1" id="q1-yes" value="yes" required /> Yes</label>
+              <label class="opt"><input type="radio" name="q1" id="q1-no" value="no" /> No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Q2 -->
+        <fieldset>
+          <legend>2. Noticeable decline</legend>
+          <div class="q">
+            <label for="q2-yes">Have you noticed a <strong>decline over the last 6 months</strong> (for example, weight loss, reduced strength or appetite, more time in bed/chair, or needing more help)?</label>
+            <div class="options" role="radiogroup">
+              <label class="opt"><input type="radio" name="q2" id="q2-yes" value="yes" required /> Yes</label>
+              <label class="opt"><input type="radio" name="q2" id="q2-no" value="no" /> No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Q3 -->
+        <fieldset>
+          <legend>3. Recent hospital/ER use</legend>
+          <div class="q">
+            <label for="q3-yes">Have there been <strong>two or more hospital or ER visits</strong> in the past 3 months?</label>
+            <div class="options" role="radiogroup">
+              <label class="opt"><input type="radio" name="q3" id="q3-yes" value="yes" required /> Yes</label>
+              <label class="opt"><input type="radio" name="q3" id="q3-no" value="no" /> No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Q4 -->
+        <fieldset>
+          <legend>4. Symptom burden</legend>
+          <div class="q">
+            <label for="q4-yes">Are there <strong>distressing symptoms</strong> (such as pain, breathlessness, nausea, anxiety, poor sleep) that are <strong>hard to control</strong> despite current treatment?</label>
+            <div class="options" role="radiogroup">
+              <label class="opt"><input type="radio" name="q4" id="q4-yes" value="yes" required /> Yes</label>
+              <label class="opt"><input type="radio" name="q4" id="q4-no" value="no" /> No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Q5 -->
+        <fieldset>
+          <legend>5. Daily activities &amp; caregiving</legend>
+          <div class="q">
+            <label for="q5-yes">Do you need help with <strong>most daily activities</strong> (bathing, dressing, eating, walking), or do caregivers feel <strong>overwhelmed</strong> by support needs?</label>
+            <div class="options" role="radiogroup">
+              <label class="opt"><input type="radio" name="q5" id="q5-yes" value="yes" required /> Yes</label>
+              <label class="opt"><input type="radio" name="q5" id="q5-no" value="no" /> No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Q6 -->
+        <fieldset>
+          <legend>6. Interest in palliative care</legend>
+          <div class="q">
+            <label for="q6-yes">Do you have a <strong>serious illness</strong> (for example, advanced cancer; heart failure; COPD; dementia; kidney or liver disease) and want to focus on <strong>comfort, quality of life, and coordinated support</strong>—even while receiving other treatments?</label>
+            <div class="options" role="radiogroup">
+              <label class="opt"><input type="radio" name="q6" id="q6-yes" value="yes" required /> Yes</label>
+              <label class="opt"><input type="radio" name="q6" id="q6-no" value="no" /> No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" id="resetBtn" aria-label="Reset quiz">Reset</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">See My Results</button>
+        </div>
+
+        <p class="disclaimer">This quiz is for information only and does not replace medical advice. Hospice eligibility requires a physician’s certification of terminal illness (life expectancy of ~6 months or less) and electing the hospice benefit. Palliative care can be provided alongside curative treatment. Coverage depends on your plan and clinician’s orders.</p>
+      </form>
+
+      <!-- Results -->
+      <section class="results" id="results" aria-live="polite">
+        <div class="card">
+          <h2 id="resultTitle" style="margin:0 0 8px 0">Your Results</h2>
+          <p id="resultText" style="margin:0 0 8px 0"></p>
+          <p style="margin:.5rem 0 0 0">You answered <span class="score" id="score">0</span> of 6 questions in a way that suggests hospice or palliative care may help.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="https://safelifehomehealth.com/begin-your-care-journey/" id="ctaSchedule">Request a Free Consultation</a>
+            <a class="btn btn-ghost" href="https://safelifehomehealth.com/contact-us/" id="ctaCall">Call Our Care Team</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact (Netlify Form) -->
+      <section class="contact" id="contact">
+        <form name="slh-hospice-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm" class="card" action="/" novalidate>
+          <input type="hidden" name="form-name" value="slh-hospice-lead" />
+          <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+
+          <h3 style="margin:0 0 8px 0">Want us to follow up?</h3>
+          <div class="grid two">
+            <div>
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" />
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="email">Email (optional)</label>
+              <input type="email" id="email" name="email" autocomplete="email" />
+            </div>
+            <div>
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" inputmode="numeric" pattern="[0-9]*" />
+            </div>
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="payer">Insurance</label>
+              <select id="payer" name="payer">
+                <option value="">Select one</option>
+                <option>Medicare</option>
+                <option>Medicaid</option>
+                <option>BCBS / MCO</option>
+                <option>Private Insurance</option>
+                <option>Self-pay / Not sure</option>
+              </select>
+            </div>
+            <div>
+              <label for="besttime">Best Time to Reach You</label>
+              <select id="besttime" name="besttime">
+                <option value="">Any time</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+                <option>Evening</option>
+              </select>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <span class="disclaimer">Don’t include sensitive medical details here. We’ll confirm information securely.</span>
+          </div>
+          <div id="contactStatus" class="disclaimer" aria-live="polite" style="margin-top:8px"></div>
+        </form>
+      </section>
+    </section>
+
+    <!-- Footer (same as Home Health page) -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-title">Licensed to Serve in These Areas</div>
+        <div class="licensed-grid">
+          <span>Boone</span><span>Cook</span><span>Dekalb</span><span>DuPage</span>
+          <span>Grundy</span><span>Lake</span><span>LaSalle</span><span>Lee</span>
+          <span>Kane</span><span>McHenry</span><span>Will</span><span>Winnebago</span>
+          <span>Kankakee</span><span>Kendall</span><span>Ogle</span>
+        </div>
+
+        <div class="footer-title">Connect with Our Team</div>
+        <div class="contact-block">
+          <div class="office">
+            <h4>Lombard Office</h4>
+            <div class="row">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>
+              <div>101 W 22nd St., STE 202, Lombard, IL 60148</div>
+            </div>
+            <div class="row">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.07 22 2 13.93 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.28.2 2.47.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z" fill="currentColor"/></svg>
+              <div><strong>Phone:</strong> +1 (630) 620-9064</div>
+            </div>
+            <div class="row">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.07 22 2 13.93 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.28.2 2.47.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z" fill="currentColor"/></svg>
+              <div><strong>Fax:</strong> +1 (630) 406-9342</div>
+            </div>
+          </div>
+
+          <div class="office">
+            <h4>Chicago Office</h4>
+            <div class="row">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>
+              <div>5501 West Montrose Avenue, Unit D, Chicago, IL 60641</div>
+            </div>
+            <div class="row">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.07 22 2 13.93 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.28.2 2.47.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z" fill="currentColor"/></svg>
+              <div><strong>Phone:</strong> +1 (847) 729-9475</div>
+            </div>
+            <div class="row">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.07 22 2 13.93 2 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.28.2 2.47.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z" fill="currentColor"/></svg>
+              <div><strong>Fax:</strong> +1 (773) 283-4645</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      // Quiz logic (same behavior as Home Health)
+      const form = document.getElementById('quizForm');
+      const results = document.getElementById('results');
+      const contact = document.getElementById('contact');
+      const scoreEl = document.getElementById('score');
+      const titleEl = document.getElementById('resultTitle');
+      const textEl = document.getElementById('resultText');
+      const progressBar = document.getElementById('progressBar');
+      const resetBtn = document.getElementById('resetBtn');
+      const total = 6;
+
+      function isYes(name){
+        const yes = form.querySelector(`input[name="${name}"][value="yes"]`);
+        return !!(yes && yes.checked);
+      }
+      function updateProgress(){
+        const answered = new Set();
+        for (let i=1;i<=total;i++){
+          const yes = form.querySelector(`input[name="q${i}"][value="yes"]`);
+          const no  = form.querySelector(`input[name="q${i}"][value="no"]`);
+          if ((yes && yes.checked) || (no && no.checked)) answered.add(i);
+        }
+        progressBar.style.width = Math.round(answered.size/total*100) + '%';
+      }
+      form.addEventListener('change', updateProgress);
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        let score = 0; for (let i=1;i<=total;i++){ if (isYes(`q${i}`)) score++; }
+        scoreEl.textContent = String(score);
+
+        // Hospice tilt: Q1 = yes OR high score with decline/care needs
+        const hospiceTilt = isYes('q1') || (score >= 4 && (isYes('q2') || isYes('q3') || isYes('q5')));
+
+        let title = 'Good fit for Palliative Care';
+        let text  = 'Your answers suggest palliative care could help manage symptoms, coordinate care, and support quality of life—alongside other treatments. Our team can talk with your clinician to see what’s covered.';
+        if (hospiceTilt){
+          title = 'Strong fit for Hospice (and Palliative)';
+          text  = 'Your responses suggest hospice may be appropriate, focusing on comfort and support for you and your family. We can coordinate with your physician about eligibility and next steps.';
+        } else if (score <= 1){
+          title = 'Maybe not hospice/palliative right now — but we can help';
+          text  = 'You might not need hospice or palliative care right now. If you need community resources, caregiver support, or home care services, we can guide you.';
+        }
+
+        titleEl.textContent = title;
+        textEl.textContent  = text;
+        results.style.display = 'block';
+        contact.style.display = 'block';
+        results.scrollIntoView({behavior:'smooth'});
+      });
+
+      resetBtn.addEventListener('click', function(){
+        form.reset();
+        updateProgress();
+        results.style.display = 'none';
+        contact.style.display = 'none';
+      });
+
+      updateProgress();
+    })();
+  </script>
+
+  <script>
+    // Netlify Forms AJAX submit (same as Home Health)
+    (function(){
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('contactStatus');
+      if(!form) return;
+
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        if(btn){ btn.disabled = true; btn.textContent = 'Sending...'; }
+        if(status){ status.textContent = 'Sending...'; }
+
+        const fd = new FormData(form);
+        if(!fd.has('form-name')) fd.append('form-name', form.getAttribute('name') || 'slh-hospice-lead');
+
+        try{
+          await fetch(form.getAttribute('action') || '/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(fd).toString()
+          });
+          if(status){ status.textContent = 'Thanks! Our care team will reach out shortly.'; }
+          try{ window.localStorage.setItem('slh-hospice-quiz-lead','1'); }catch(_){}
+          form.reset();
+        }catch(err){
+          if(status){ status.textContent = 'Sorry—something went wrong. Please email info@safelifehomehealth.com or try again.'; }
+        }finally{
+          if(btn){ btn.disabled = false; btn.textContent = 'Send'; }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
